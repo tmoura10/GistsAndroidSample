@@ -12,12 +12,12 @@ import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 
-class GetFavoriteGistsInteractorTest {
+class GetStarredGistsInteractorTest {
 
-    lateinit var gistRepository: GistRepository
-    lateinit var schedulersProvider: SchedulersProvider
-    lateinit var getFavoriteGistsInteractor: GetFavoriteGistsInteractor
-    lateinit var transformer: ReactiveTransformer<List<Gist>>
+    private lateinit var gistRepository: GistRepository
+    private lateinit var schedulersProvider: SchedulersProvider
+    private lateinit var getStarredGistsInteractor: GetStarredGistsInteractor
+    private lateinit var transformer: ReactiveTransformer<List<Gist>>
     private val factory = GistFactory()
 
     @Before
@@ -25,7 +25,7 @@ class GetFavoriteGistsInteractorTest {
         gistRepository = mock()
         schedulersProvider = mock()
         transformer = mock()
-        getFavoriteGistsInteractor = GetFavoriteGistsInteractor(gistRepository = gistRepository,
+        getStarredGistsInteractor = GetStarredGistsInteractor(gistRepository = gistRepository,
                 schedulersProvider = schedulersProvider)
 
         whenever(schedulersProvider.buildTransformer<List<Gist>>()).thenReturn(transformer)
@@ -36,10 +36,10 @@ class GetFavoriteGistsInteractorTest {
         val gists = createTestGists()
         val single = Single.just(gists)
 
-        whenever(gistRepository.getFavoriteGists()).thenReturn(single)
+        whenever(gistRepository.getStarredGists()).thenReturn(single)
         whenever(transformer.apply(single)).thenReturn(single)
 
-        val subscriber = getFavoriteGistsInteractor.execute(Unit).test()
+        val subscriber = getStarredGistsInteractor.execute(Unit).test()
 
         subscriber.assertNoErrors()
         subscriber.assertValue(gists)
@@ -50,10 +50,10 @@ class GetFavoriteGistsInteractorTest {
         val gists = createTestGists()
         val single = Single.just(gists)
 
-        whenever(gistRepository.getFavoriteGists()).thenReturn(single)
+        whenever(gistRepository.getStarredGists()).thenReturn(single)
         whenever(transformer.apply(single)).thenReturn(single)
 
-        getFavoriteGistsInteractor.execute(Unit).test()
+        getStarredGistsInteractor.execute(Unit).test()
 
         verify(transformer).apply(single)
     }
@@ -63,10 +63,10 @@ class GetFavoriteGistsInteractorTest {
         val exception = Exception("test exception")
         val single = Single.error<List<Gist>>(exception)
 
-        whenever(gistRepository.getFavoriteGists()).thenReturn(single)
+        whenever(gistRepository.getStarredGists()).thenReturn(single)
         whenever(transformer.apply(single)).thenReturn(single)
 
-        val subscriber = getFavoriteGistsInteractor.execute(Unit).test()
+        val subscriber = getStarredGistsInteractor.execute(Unit).test()
 
         subscriber.assertError(exception)
     }

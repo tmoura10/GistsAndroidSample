@@ -6,12 +6,12 @@ import br.com.tmoura.gists.domain.repository.GistRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetFavoriteGistsInteractor @Inject constructor(
+class GetStarredGistsInteractor @Inject constructor(
         val gistRepository: GistRepository,
         val schedulersProvider: SchedulersProvider)
     : Interactor<Unit, Single<List<Gist>>> {
 
     override fun execute(params: Unit): Single<List<Gist>> {
-        return gistRepository.getFavoriteGists().compose(schedulersProvider.buildTransformer())
+        return gistRepository.getStarredGists().compose(schedulersProvider.buildTransformer())
     }
 }

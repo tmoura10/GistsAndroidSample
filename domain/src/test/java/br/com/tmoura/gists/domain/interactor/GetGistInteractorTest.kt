@@ -15,10 +15,10 @@ import org.junit.Test
 
 class GetGistInteractorTest {
 
-    lateinit var gistRepository: GistRepository
-    lateinit var schedulersProvider: SchedulersProvider
-    lateinit var getGistInteractor: GetGistInteractor
-    lateinit var transformer: ReactiveTransformer<Gist>
+    private lateinit var gistRepository: GistRepository
+    private lateinit var schedulersProvider: SchedulersProvider
+    private lateinit var getGistInteractor: GetGistInteractor
+    private lateinit var transformer: ReactiveTransformer<Gist>
     private val factory = GistFactory()
 
     @Before
