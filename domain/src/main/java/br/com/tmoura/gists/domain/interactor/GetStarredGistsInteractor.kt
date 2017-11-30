@@ -7,8 +7,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetStarredGistsInteractor @Inject constructor(
-        val gistRepository: GistRepository,
-        val schedulersProvider: SchedulersProvider)
+        private val gistRepository: GistRepository,
+        private val schedulersProvider: SchedulersProvider)
     : Interactor<Unit, Single<List<Gist>>> {
 
     override fun execute(params: Unit): Single<List<Gist>> {

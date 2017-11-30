@@ -3,6 +3,10 @@ apply plugin: 'kotlin'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+configurations {
+    testOutput
+}
+
 dependencies {
     def domainDependencies = rootProject.ext.domainDependencies
     def domainTestDependencies = rootProject.ext.domainTestDependencies
@@ -16,4 +20,6 @@ dependencies {
     testImplementation domainTestDependencies.jUnit
     testImplementation domainTestDependencies.mockito
     testImplementation domainTestDependencies.mockitoKotlin
+
+    testOutput sourceSets.test.output
 }

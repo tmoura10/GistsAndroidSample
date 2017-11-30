@@ -12,7 +12,7 @@ class GistFactory : Factory<Gist>() {
             language = uuid(),
             rawUrl = uuid(),
             isStarred = boolean(),
-            author = authorFactory.create()
+            owner = authorFactory.create()
     )
 
 }

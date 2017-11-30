@@ -1,12 +1,12 @@
 package br.com.tmoura.gists.domain.factory
 
-import br.com.tmoura.gists.domain.model.Author
+import br.com.tmoura.gists.domain.model.Owner
 
-class AuthorFactory : Factory<Author>() {
+class AuthorFactory : Factory<Owner>() {
 
-    override fun create() = Author(
-            id = uuid(),
-            name = uuid(),
+    override fun create() = Owner(
+            id = long(),
+            login = uuid(),
             avatarUrl = uuid()
     )
 

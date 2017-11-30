@@ -33,7 +33,7 @@ class GetStarredGistsInteractorTest {
 
     @Test
     fun `favorite gists are retrieved with success`() {
-        val gists = createTestGists()
+        val gists = factory.createList(10)
         val single = Single.just(gists)
 
         whenever(gistRepository.getStarredGists()).thenReturn(single)
@@ -47,7 +47,7 @@ class GetStarredGistsInteractorTest {
 
     @Test
     fun `interactor is executed with right transformer`() {
-        val gists = createTestGists()
+        val gists = factory.createList(10)
         val single = Single.just(gists)
 
         whenever(gistRepository.getStarredGists()).thenReturn(single)
@@ -70,12 +70,5 @@ class GetStarredGistsInteractorTest {
 
         subscriber.assertError(exception)
     }
-
-    private fun createTestGists() = listOf(
-            factory.create(),
-            factory.create(),
-            factory.create(),
-            factory.create()
-    )
 
 }

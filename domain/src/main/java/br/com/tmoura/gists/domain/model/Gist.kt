@@ -5,6 +5,6 @@ data class Gist(
         val title: String,
         val language: String,
         val rawUrl: String,
-        val author: Author,
+        val owner: Owner,
         var isStarred: Boolean
 )

@@ -1,0 +1,26 @@
+apply plugin: 'kotlin'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencies {
+
+    implementation project(":domain")
+    testImplementation project(path: ":domain", configuration: "testOutput")
+
+    def dataDependencies = rootProject.ext.dataDependencies
+    def dataTestDependencies = rootProject.ext.dataTestDependencies
+
+    implementation dataDependencies.kotlin
+    implementation dataDependencies.rxJava
+    implementation dataDependencies.rxKotlin
+    implementation dataDependencies.javaxAnnotation
+    implementation dataDependencies.javaxInject
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitGsonConverter
+    implementation dataDependencies.gson
+
+    testImplementation dataTestDependencies.jUnit
+    testImplementation dataTestDependencies.mockito
+    testImplementation dataTestDependencies.mockitoKotlin
+}
