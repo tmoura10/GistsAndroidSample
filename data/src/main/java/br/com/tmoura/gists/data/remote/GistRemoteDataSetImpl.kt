@@ -15,10 +15,12 @@ class GistRemoteDataSetImpl @Inject constructor(
     }
 
     override fun getGists(loadedItemsCount: Int): Single<List<Gist>> {
-        val page = (loadedItemsCount / GISTS_PER_PAGE) + 1
+        val page = page(loadedItemsCount, GISTS_PER_PAGE)
         val gists = api.getGists(page, GISTS_PER_PAGE)
         return gists.map { items -> items.map { it.toDomain() } }
     }
+
+    fun page(loadedItemsCount: Int, itemsPerPage: Int) = (loadedItemsCount / itemsPerPage) + 1
 
     override fun getGist(id: String): Single<Gist> {
         val gist = api.getGist(id = id)
