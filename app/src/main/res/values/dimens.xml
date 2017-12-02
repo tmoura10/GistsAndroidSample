@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_item_padding">16dp</dimen>
+    <dimen name="list_image_size">40dp</dimen>
+    <dimen name="owner_box_width">100dp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="big_text_size">16sp</dimen>
+    <dimen name="regular_text_size">14sp</dimen>
+    <dimen name="text_margin_top">4dp</dimen>
+    <dimen name="list_image_right_margin">16dp</dimen>
+</resources>

@@ -32,8 +32,10 @@ dependencies {
 
     def appDependencies = rootProject.ext.appDependencies
     def appTestDependencies = rootProject.ext.appTestDependencies
+    def appAnnotationDependencies = rootProject.ext.appAnnotationDependencies
 
     implementation appDependencies.appCompat
+    implementation appDependencies.design
     implementation appDependencies.recyclerView
     implementation appDependencies.kotlin
     implementation appDependencies.dagger
@@ -42,9 +44,11 @@ dependencies {
     implementation appDependencies.retrofitGsonConverter
     implementation appDependencies.retrofitRxJavaAdapter
     implementation appDependencies.rxAndroid
+    implementation appDependencies.glide
 
-    kapt appDependencies.daggerCompiler
-    kapt appDependencies.daggerAndroidProcessor
+    kapt appAnnotationDependencies.daggerCompiler
+    kapt appAnnotationDependencies.daggerAndroidProcessor
+    kapt appAnnotationDependencies.glideCompiler
 
     testImplementation appTestDependencies.jUnit
 

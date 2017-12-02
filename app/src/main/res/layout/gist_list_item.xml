@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:padding="@dimen/list_item_padding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/ownerAvatar"
+        android:layout_width="@dimen/list_image_size"
+        android:layout_height="@dimen/list_image_size"
+        android:layout_marginEnd="@dimen/list_image_right_margin"
+        android:layout_marginRight="16dp"
+        android:layout_gravity="center"
+        tools:src="@drawable/ic_launcher_background"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/ownerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/regular_text_size"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="A really big owner name should be displayed here but I dont know if it will fit"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/gistTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="@dimen/big_text_size"
+            android:layout_marginTop="@dimen/text_margin_top"
+            tools:text="A really big Gist name should be displayed here but"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/gistLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="@dimen/small_text_size"
+            android:layout_marginTop="@dimen/text_margin_top"
+            tools:text="A really big language name should be displayed here but..."/>
+
+    </LinearLayout>
+
+</LinearLayout>

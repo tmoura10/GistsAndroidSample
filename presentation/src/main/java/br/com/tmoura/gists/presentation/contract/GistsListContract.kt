@@ -12,7 +12,7 @@ interface GistsListContract {
     }
 
     interface View : LoaderView, ErrorHandlerView {
-        fun displayGists(gistsViewModel: List<GistItemViewModel>)
+        fun displayGists(gistsViewModel: List<GistItemViewModel>, forceNewList: Boolean)
     }
 
 }

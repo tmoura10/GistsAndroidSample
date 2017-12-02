@@ -4,7 +4,7 @@ import br.com.tmoura.gists.domain.interactor.GetGistsInteractor
 import br.com.tmoura.gists.domain.model.Gist
 import br.com.tmoura.gists.presentation.contract.GistsListContract
 import br.com.tmoura.gists.presentation.mapper.toViewModel
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
@@ -13,23 +13,26 @@ class GistListPresenterImpl @Inject constructor(
         private val getGists: GetGistsInteractor
 ) : GistsListContract.Presenter {
 
-    private var disposable: Disposable? = null
+    private var disposables: CompositeDisposable? = null
 
     override fun register() {
         loadGists()
     }
 
     override fun unRegister() {
-        disposable?.let { if (!it.isDisposed) it.dispose() }
+        disposables?.let { if (!it.isDisposed) it.dispose() }
     }
 
     override fun loadGists(loadedItemsCount: Int) {
         view.displayLoader()
-        disposable = getGists.execute(GetGistsInteractor.Params(loadedItemsCount = loadedItemsCount))
-                .subscribeBy(
-                        onError = this::displayError,
-                        onSuccess = this::displayGists
-                )
+        val forceNewList = loadedItemsCount == 0
+        val disposable = getGists.execute(
+                GetGistsInteractor.Params(loadedItemsCount = loadedItemsCount)
+        ).subscribeBy(
+                onError = this::displayError,
+                onSuccess = { displayGists(gists = it, forceNewList = forceNewList) }
+        )
+        disposables?.add(disposable)
     }
 
     private fun displayError(error: Throwable) {
@@ -37,9 +40,9 @@ class GistListPresenterImpl @Inject constructor(
         view.displayError(error)
     }
 
-    private fun displayGists(gists: List<Gist>) {
+    private fun displayGists(gists: List<Gist>, forceNewList: Boolean) {
         val gistsViewModel = gists.map { it.toViewModel() }
         view.hideLoader()
-        view.displayGists(gistsViewModel)
+        view.displayGists(gistsViewModel, forceNewList = forceNewList)
     }
 }
