@@ -8,8 +8,11 @@ ext {
 
     jvmTarget = '1.6'
     kotlinVersion = '1.1.61'
+
     rxJavaVersion = '2.1.6'
     rxKotlinVersion = '2.1.0'
+    rxAndroidVersion = '2.0.1'
+
     javaxAnnotationVersion = '1.0'
     javaxInjectVersion = '1'
 
@@ -19,6 +22,9 @@ ext {
 
     retrofitVersion = '2.3.0'
     gsonVersion = '2.8.2'
+
+    daggerVersion = '2.13'
+    supportLibraryVersion = '26.1.0'
 
     domainDependencies = [
             kotlin          : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion",
@@ -46,6 +52,43 @@ ext {
     ]
 
     dataTestDependencies = [
+            jUnit         : "junit:junit:$jUnitVersion",
+            mockito       : "org.mockito:mockito-core:$mockitoVersion",
+            mockitoKotlin : "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
+    ]
+
+    presentationDependencies = [
+            kotlin          : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion",
+            rxJava          : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
+            rxKotlin        : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
+            javaxInject     : "javax.inject:javax.inject:$javaxInjectVersion",
+            javaxAnnotation : "javax.annotation:jsr250-api:$javaxAnnotationVersion"
+    ]
+
+    presentationTestDependencies = [
+            jUnit         : "junit:junit:$jUnitVersion",
+            mockito       : "org.mockito:mockito-core:$mockitoVersion",
+            mockitoKotlin : "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"
+    ]
+
+    appDependencies = [
+            kotlin                 : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion",
+            rxJava                 : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
+            rxKotlin               : "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion",
+            rxAndroid              : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+            dagger                 : "com.google.dagger:dagger:$daggerVersion",
+            daggerCompiler         : "com.google.dagger:dagger-compiler:$daggerVersion",
+            daggerAndroid          : "com.google.dagger:dagger-android-support:$daggerVersion",
+            daggerAndroidProcessor : "com.google.dagger:dagger-android-processor:$daggerVersion",
+            retrofit               : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            retrofitGsonConverter  : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            retrofitRxJavaAdapter  : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+            appCompat              : "com.android.support:appcompat-v7:$supportLibraryVersion",
+            recyclerView           : "com.android.support:recyclerview-v7:$supportLibraryVersion",
+            design                 : "com.android.support:design:$supportLibraryVersion"
+    ]
+
+    appTestDependencies = [
             jUnit         : "junit:junit:$jUnitVersion",
             mockito       : "org.mockito:mockito-core:$mockitoVersion",
             mockitoKotlin : "com.nhaarman:mockito-kotlin:$mockitoKotlinVersion"

@@ -1,8 +1,9 @@
-package br.com.tmoura.gists.domain.interactor
+package br.com.tmoura.gists.domain.interactor.impl
 
 import br.com.tmoura.gists.domain.ReactiveTransformer
 import br.com.tmoura.gists.domain.SchedulersProvider
 import br.com.tmoura.gists.domain.factory.GistFactory
+import br.com.tmoura.gists.domain.interactor.StarGistInteractor
 import br.com.tmoura.gists.domain.repository.GistRepository
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
@@ -11,12 +12,12 @@ import io.reactivex.Completable
 import org.junit.Before
 import org.junit.Test
 
-class StarGistInteractorTest {
+class StarGistInteractorImplTest {
 
     private lateinit var gistRepository: GistRepository
     private lateinit var schedulersProvider: SchedulersProvider
     private lateinit var transformer: ReactiveTransformer<Any>
-    private lateinit var starGistInteractor: StarGistInteractor
+    private lateinit var starGistInteractor: StarGistInteractorImpl
     private val factory = GistFactory()
 
     @Before
@@ -24,7 +25,7 @@ class StarGistInteractorTest {
         gistRepository = mock()
         schedulersProvider = mock()
         transformer = mock()
-        starGistInteractor = StarGistInteractor(gistRepository = gistRepository,
+        starGistInteractor = StarGistInteractorImpl(gistRepository = gistRepository,
                 schedulersProvider = schedulersProvider)
 
         whenever(schedulersProvider.buildTransformer<Any>()).thenReturn(transformer)

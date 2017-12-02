@@ -13,7 +13,7 @@ fun GistPayload.toDomain(): Gist {
     val file = Gson().fromJson(fileEntry?.value, FilePayload::class.java)
 
     return Gist(id = this.id,
-            title = this.description,
+            title = this.description ?: "-",
             language = file?.language ?: "",
             rawUrl = file?.rawUrl ?: "",
             owner = this.owner?.toDomain() ?: Owner.ANONYMOUS,

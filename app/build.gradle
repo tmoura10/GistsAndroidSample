@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
@@ -23,10 +25,28 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
 
-    testImplementation 'junit:junit:4.12'
+    implementation project(":presentation")
+    implementation project(":data")
+    implementation project(":domain")
+
+    def appDependencies = rootProject.ext.appDependencies
+    def appTestDependencies = rootProject.ext.appTestDependencies
+
+    implementation appDependencies.appCompat
+    implementation appDependencies.recyclerView
+    implementation appDependencies.kotlin
+    implementation appDependencies.dagger
+    implementation appDependencies.daggerAndroid
+    implementation appDependencies.retrofit
+    implementation appDependencies.retrofitGsonConverter
+    implementation appDependencies.retrofitRxJavaAdapter
+    implementation appDependencies.rxAndroid
+
+    kapt appDependencies.daggerCompiler
+    kapt appDependencies.daggerAndroidProcessor
+
+    testImplementation appTestDependencies.jUnit
 
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

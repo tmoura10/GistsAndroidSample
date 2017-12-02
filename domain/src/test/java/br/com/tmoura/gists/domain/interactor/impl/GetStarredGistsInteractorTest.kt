@@ -1,11 +1,10 @@
-package br.com.tmoura.gists.domain.interactor
+package br.com.tmoura.gists.domain.interactor.impl
 
 import br.com.tmoura.gists.domain.ReactiveTransformer
 import br.com.tmoura.gists.domain.SchedulersProvider
 import br.com.tmoura.gists.domain.factory.GistFactory
 import br.com.tmoura.gists.domain.model.Gist
 import br.com.tmoura.gists.domain.repository.GistRepository
-import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
@@ -13,11 +12,11 @@ import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 
-class GetGistsInteractorTest {
+class GetStarredGistsInteractorTest {
 
     private lateinit var gistRepository: GistRepository
     private lateinit var schedulersProvider: SchedulersProvider
-    private lateinit var getGistsInteractor: GetGistsInteractor
+    private lateinit var getStarredGistsInteractor: GetStarredGistsInteractorImpl
     private lateinit var transformer: ReactiveTransformer<List<Gist>>
     private val factory = GistFactory()
 
@@ -26,22 +25,21 @@ class GetGistsInteractorTest {
         gistRepository = mock()
         schedulersProvider = mock()
         transformer = mock()
-        getGistsInteractor = GetGistsInteractor(gistRepository = gistRepository,
+        getStarredGistsInteractor = GetStarredGistsInteractorImpl(gistRepository = gistRepository,
                 schedulersProvider = schedulersProvider)
 
         whenever(schedulersProvider.buildTransformer<List<Gist>>()).thenReturn(transformer)
     }
 
     @Test
-    fun `gists are retrieved with success`() {
-        val gists = factory.createList(5)
+    fun `favorite gists are retrieved with success`() {
+        val gists = factory.createList(10)
         val single = Single.just(gists)
 
-        whenever(gistRepository.getGists(any())).thenReturn(single)
+        whenever(gistRepository.getStarredGists()).thenReturn(single)
         whenever(transformer.apply(single)).thenReturn(single)
 
-        val subscriber = getGistsInteractor.execute(GetGistsInteractor.Params(loadedItemsCount = 5))
-                .test()
+        val subscriber = getStarredGistsInteractor.execute(Unit).test()
 
         subscriber.assertNoErrors()
         subscriber.assertValue(gists)
@@ -49,14 +47,13 @@ class GetGistsInteractorTest {
 
     @Test
     fun `interactor is executed with right transformer`() {
-        val gists = factory.createList(5)
+        val gists = factory.createList(10)
         val single = Single.just(gists)
 
-        whenever(gistRepository.getGists(any())).thenReturn(single)
+        whenever(gistRepository.getStarredGists()).thenReturn(single)
         whenever(transformer.apply(single)).thenReturn(single)
 
-        getGistsInteractor.execute(GetGistsInteractor.Params(loadedItemsCount = 5))
-                .test()
+        getStarredGistsInteractor.execute(Unit).test()
 
         verify(transformer).apply(single)
     }
@@ -66,11 +63,10 @@ class GetGistsInteractorTest {
         val exception = Exception("test exception")
         val single = Single.error<List<Gist>>(exception)
 
-        whenever(gistRepository.getGists(any())).thenReturn(single)
+        whenever(gistRepository.getStarredGists()).thenReturn(single)
         whenever(transformer.apply(single)).thenReturn(single)
 
-        val subscriber = getGistsInteractor.execute(GetGistsInteractor.Params(loadedItemsCount = 5))
-                .test()
+        val subscriber = getStarredGistsInteractor.execute(Unit).test()
 
         subscriber.assertError(exception)
     }
