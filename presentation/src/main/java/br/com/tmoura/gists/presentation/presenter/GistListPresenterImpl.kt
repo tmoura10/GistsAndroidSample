@@ -16,7 +16,7 @@ class GistListPresenterImpl @Inject constructor(
     private var disposables: CompositeDisposable? = null
 
     override fun register() {
-        loadGists()
+        view.bindPresenter(this)
     }
 
     override fun unRegister() {

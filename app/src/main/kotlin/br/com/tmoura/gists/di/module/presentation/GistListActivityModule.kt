@@ -1,9 +1,10 @@
 package br.com.tmoura.gists.di.module.presentation
 
 import br.com.tmoura.gists.di.scope.PerActivity
-import br.com.tmoura.gists.gists.GistListActivity
+import br.com.tmoura.gists.view.GistListView
 import br.com.tmoura.gists.presentation.contract.GistsListContract
 import br.com.tmoura.gists.presentation.presenter.GistListPresenterImpl
+import br.com.tmoura.gists.view.GistListComponentView
 import dagger.Binds
 import dagger.Module
 
@@ -16,6 +17,10 @@ abstract class GistListActivityModule {
 
     @Binds
     @PerActivity
-    abstract fun bindView(impl: GistListActivity): GistsListContract.View
+    abstract fun bindComponent(impl: GistListView): GistListComponentView
+
+    @Binds
+    @PerActivity
+    abstract fun bindView(impl: GistListComponentView): GistsListContract.View
 
 }
