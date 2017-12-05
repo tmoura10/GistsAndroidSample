@@ -1,11 +1,11 @@
 package br.com.tmoura.gists.view
 
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.tmoura.gists.R
+import br.com.tmoura.gists.extensions.inflate
+import br.com.tmoura.gists.extensions.inflateAttachingToRoot
 import br.com.tmoura.gists.presentation.contract.GistsListContract
 import br.com.tmoura.gists.presentation.model.GistItemViewModel
 import kotlinx.android.synthetic.main.view_gist_list.view.gistList
@@ -21,7 +21,7 @@ class GistListView @Inject constructor(): GistListComponentView {
     private val tag = this.javaClass.name
 
     override fun displayLoader() {
-        view.gistList.visibility = View.VISIBLE
+        view.gistLoader.visibility = View.VISIBLE
     }
 
     override fun displayError(error: Throwable) {
@@ -42,7 +42,7 @@ class GistListView @Inject constructor(): GistListComponentView {
     }
 
     override fun attach(root: ViewGroup) {
-        view = LayoutInflater.from(root.context).inflate(R.layout.view_gist_list, root)
+        view = root.inflateAttachingToRoot(R.layout.view_gist_list)
         init()
     }
 
@@ -52,10 +52,12 @@ class GistListView @Inject constructor(): GistListComponentView {
     }
 
     private fun setupRecyclerView() {
-        view.gistList.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
-        view.gistList.listener = { size ->
+        view.gistList.onRequestMoreItems = { size ->
             Log.d(tag, "loadGists($size)")
             presenter.loadGists(loadedItemsCount = size)
+        }
+        view.gistList.onItemSelected = { item ->
+            Log.d(tag, item.toString())
         }
     }
 

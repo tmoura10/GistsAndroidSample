@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import br.com.tmoura.gists.adapter.GistListAdapter
+import br.com.tmoura.gists.adapter.OnGistItemSelected
 import br.com.tmoura.gists.presentation.model.GistItemViewModel
 
 class GistListRecyclerView @JvmOverloads constructor(
@@ -15,10 +16,15 @@ class GistListRecyclerView @JvmOverloads constructor(
 
     var items: MutableList<GistItemViewModel> = mutableListOf()
     var isLoadingItems = false
-    var listener: ((Int) -> Unit)? = null
+    var onRequestMoreItems: ((Int) -> Unit)? = null
+    var onItemSelected: OnGistItemSelected? = null
+        set(value) {
+            (adapter as GistListAdapter).onItemSelected = value
+        }
 
     init {
-        adapter = GistListAdapter(items)
+        adapter = GistListAdapter(items, onItemSelected)
+        layoutManager = LinearLayoutManager(context)
         setupLoader()
     }
 
@@ -43,7 +49,7 @@ class GistListRecyclerView @JvmOverloads constructor(
     }
 
     private fun loadMoreItems() {
-        listener?.invoke(items.size)
+        onRequestMoreItems?.invoke(items.size)
         isLoadingItems = true
     }
 

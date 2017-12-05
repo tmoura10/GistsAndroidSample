@@ -7,3 +7,7 @@ import android.view.ViewGroup
 fun ViewGroup.inflate(layoutRes: Int): View = LayoutInflater
         .from(context)
         .inflate(layoutRes, this, false)
+
+fun ViewGroup.inflateAttachingToRoot(layoutRes: Int): View = LayoutInflater
+        .from(context)
+        .inflate(layoutRes, this, true)

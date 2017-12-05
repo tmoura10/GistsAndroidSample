@@ -12,11 +12,13 @@ import kotlinx.android.synthetic.main.gist_list_item.view.gistTitle
 import kotlinx.android.synthetic.main.gist_list_item.view.ownerAvatar
 import kotlinx.android.synthetic.main.gist_list_item.view.ownerName
 
-class GistListAdapter(var items: List<GistItemViewModel>)
+typealias OnGistItemSelected = (GistItemViewModel) -> Unit
+
+class GistListAdapter(var items: List<GistItemViewModel>, var onItemSelected: OnGistItemSelected?)
     : RecyclerView.Adapter<AbstractViewHolder<GistItemViewModel>>() {
 
     override fun onBindViewHolder(holder: AbstractViewHolder<GistItemViewModel>?, position: Int) {
-        holder?.bind(items[holder.adapterPosition])
+        holder?.bind(items[holder.adapterPosition], onItemSelected)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbstractViewHolder<GistItemViewModel> {
@@ -32,10 +34,11 @@ class GistListAdapter(var items: List<GistItemViewModel>)
 
 class GistItem(itemView: View) : AbstractViewHolder<GistItemViewModel>(itemView) {
 
-    override fun bind(item: GistItemViewModel) = with(itemView) {
+    override fun bind(item: GistItemViewModel, onItemSelected: OnGistItemSelected?) = with(itemView) {
         Glide.with(itemView).load(item.ownerAvatarUrl).into(ownerAvatar)
         gistTitle.text = item.title
         gistLanguage.text = item.language
         ownerName.text = item.ownerName
+        setOnClickListener { onItemSelected?.invoke(item) }
     }
 }
