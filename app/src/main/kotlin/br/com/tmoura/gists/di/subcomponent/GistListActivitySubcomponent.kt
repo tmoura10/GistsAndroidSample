@@ -1,13 +1,13 @@
 package br.com.tmoura.gists.di.subcomponent
 
-import br.com.tmoura.gists.gists.GistListActivity
+import br.com.tmoura.gists.activity.MainActivity
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
 
 @Subcomponent
-interface GistListActivitySubcomponent : AndroidInjector<GistListActivity> {
+interface GistListActivitySubcomponent : AndroidInjector<MainActivity> {
 
     @Subcomponent.Builder
-    abstract class Builder : AndroidInjector.Builder<GistListActivity>()
+    abstract class Builder : AndroidInjector.Builder<MainActivity>()
 
 }

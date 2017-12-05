@@ -1,4 +1,4 @@
-package br.com.tmoura.gists.gists
+package br.com.tmoura.gists.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -9,9 +9,9 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.content
 import javax.inject.Inject
 
-class GistListActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
-    @Inject lateinit var gistListView : GistListComponentView
+    @Inject lateinit var gistListComponent : GistListComponentView
     @Inject lateinit var gistListPresenter: GistsListContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class GistListActivity : AppCompatActivity() {
         gistListPresenter.register()
 
         setContentView(R.layout.activity_main)
-        gistListView.attach(content)
+        gistListComponent.attach(content)
     }
 
     override fun onDestroy() {

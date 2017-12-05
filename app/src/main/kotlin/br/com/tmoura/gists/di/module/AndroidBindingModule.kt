@@ -2,7 +2,7 @@ package br.com.tmoura.gists.di.module
 
 import br.com.tmoura.gists.di.module.presentation.GistListActivityModule
 import br.com.tmoura.gists.di.scope.PerActivity
-import br.com.tmoura.gists.gists.GistListActivity
+import br.com.tmoura.gists.activity.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -11,6 +11,6 @@ abstract class AndroidBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector(modules = arrayOf(GistListActivityModule::class))
-    abstract fun bindGistListActivity(): GistListActivity
+    abstract fun bindGistListActivity(): MainActivity
 
 }
