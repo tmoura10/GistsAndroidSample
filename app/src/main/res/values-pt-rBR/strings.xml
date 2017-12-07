@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Exemplo de Gists</string>
+    <string name="menu_home">Início</string>
+    <string name="menu_starred">Favoritos</string>
+    <string name="menu_about">Sobre</string>
+</resources>

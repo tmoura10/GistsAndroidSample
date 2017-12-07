@@ -4,7 +4,6 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import br.com.tmoura.gists.R
-import br.com.tmoura.gists.extensions.inflate
 import br.com.tmoura.gists.extensions.inflateAttachingToRoot
 import br.com.tmoura.gists.presentation.contract.GistsListContract
 import br.com.tmoura.gists.presentation.model.GistItemViewModel
@@ -12,7 +11,7 @@ import kotlinx.android.synthetic.main.view_gist_list.view.gistList
 import kotlinx.android.synthetic.main.view_gist_list.view.gistLoader
 import javax.inject.Inject
 
-class GistListView @Inject constructor(): GistListComponentView {
+class GistListView @Inject constructor(): GistListViewComponent {
 
     lateinit var presenter: GistsListContract.Presenter
 
@@ -66,6 +65,14 @@ class GistListView @Inject constructor(): GistListComponentView {
     }
 
     override fun onNavigationItemSelected() {
-        //
+        view.gistList.scrollToPosition(0)
+    }
+
+    override fun hide() {
+        view.visibility = View.GONE
+    }
+
+    override fun show() {
+        view.visibility = View.VISIBLE
     }
 }

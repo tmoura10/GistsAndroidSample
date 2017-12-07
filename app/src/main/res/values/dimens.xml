@@ -8,4 +8,5 @@
     <dimen name="regular_text_size">14sp</dimen>
     <dimen name="text_margin_top">4dp</dimen>
     <dimen name="list_image_right_margin">16dp</dimen>
+    <dimen name="bottom_navigation_material_height">56dp</dimen>
 </resources>
